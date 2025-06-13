@@ -3,9 +3,13 @@ import 'package:flutter/services.dart';
 
 class ContentProvider extends ChangeNotifier{
   String content = "";
+  String currentPath = "";
   List<List<String>>? matrix;
+  int xmasAmount = 0;
 
   Future<void> readContent(String path) async {
+    xmasAmount = 0;
+    currentPath = path;
     content = await rootBundle.loadString(path);
     fileToMatrix(content);
 
@@ -32,6 +36,7 @@ class ContentProvider extends ChangeNotifier{
   }
 
   void xmasFinder() {
+    xmasAmount = 0;
     List<List<int>> coordToSave = [];
 
     List<String> targets = ['XMAS', 'SAMX'];
@@ -82,6 +87,7 @@ class ContentProvider extends ChangeNotifier{
             for (int x = 0; x < coords.length; x++) {
               coordToSave.add(coords[x]);
             }
+            xmasAmount+=1;
           }
         }
       }

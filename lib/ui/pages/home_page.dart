@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
@@ -55,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-          
+                      
                     },
                     child: Text("upload .txt")
                   )
@@ -90,11 +90,18 @@ class _HomePageState extends State<HomePage> {
                           
                         return Center(child: Text("${contentProvider.matrix?[line][column]}", style: TextStyle(fontWeight: FontWeight.w500),));
                       }
-                    ) : Text("OPA")
+                    ) : Text("SELECT A FILE")
                     ),
                   ],
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Xmas found: ${contentProvider.xmasAmount~/2}.", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),
+                  Text("${contentProvider.currentPath}.", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                ],
+              ), 
             ],
           ),
         ),
@@ -112,14 +119,6 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Text("only xmas")
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      
-                    });
-                  },
-                  child: Text("Reset")
-                )
               ],
             ),
       ),
