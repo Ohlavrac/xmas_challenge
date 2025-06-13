@@ -7,7 +7,6 @@ class ContentProvider extends ChangeNotifier{
 
   Future<void> readContent(String path) async {
     content = await rootBundle.loadString(path);
-
     fileToMatrix(content);
 
     notifyListeners();
@@ -15,23 +14,19 @@ class ContentProvider extends ChangeNotifier{
 
   void fileToMatrix(String content) {
 
-    if (matrix == null) {
-      matrix = [];
+    matrix = [];
 
-      //coisas do windows  (normalmente windows usa \r\n)
-      content = content.replaceAll('\r', '');
+    //coisas do windows  (normalmente windows usa \r\n)
+    content = content.replaceAll('\r', '');
 
-      List<String> lines = content.split('\n');
+    List<String> lines = content.split('\n');
 
-      for (int y = 0; y < lines.length; y++) {
-        matrix?.add([]);
-        for (int x = 0; x < lines[y].length; x++) {
-          matrix?[y].add(lines[y][x]);
-        }
+    for (int y = 0; y < lines.length; y++) {
+      matrix?.add([]);
+      for (int x = 0; x < lines[y].length; x++) {
+        matrix?[y].add(lines[y][x]);
       }
-    } 
-
-    print(matrix);
+    }
 
     notifyListeners();
   }
@@ -109,5 +104,11 @@ class ContentProvider extends ChangeNotifier{
     } else {
       return true;
     }
+  }
+
+  void reset() {
+    content = "";
+    matrix = [];
+    notifyListeners();
   }
 }

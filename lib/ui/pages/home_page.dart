@@ -39,7 +39,9 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      contentProvider.readContent(inputMeidumFilePath);
+                      setState(() {
+                        contentProvider.readContent(inputMeidumFilePath);
+                      });
                     },
                     child: Text("input.txt")
                   ),
@@ -88,48 +90,11 @@ class _HomePageState extends State<HomePage> {
                           
                         return Center(child: Text("${contentProvider.matrix?[line][column]}", style: TextStyle(fontWeight: FontWeight.w500),));
                       }
-                    ) : Text("")
+                    ) : Text("OPA")
                     ),
                   ],
                 ),
               ),
-              /*Flexible(
-                child: contentProvider.hasFile() ?  GridView.builder(
-                  shrinkWrap: true,
-                  itemCount: contentProvider.matrix!.length * contentProvider.matrix![0].length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: contentProvider.matrix![0].length
-                  ), 
-                  itemBuilder: (context, index) {
-              
-                    int columnsN = contentProvider.matrix![0].length; 
-                    int line = index ~/ columnsN; 
-                    int column = index % columnsN;
-                      
-                    return Text("${contentProvider.matrix?[line][column]}",);
-                  }
-                ) : Text("")
-              ),*/
-              /*Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
-                      });
-                    },
-                    child: Text("load")
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      setState(() {
-                        contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
-                      });
-                    },
-                    child: Text("only xmas")
-                  )
-                ],
-              ),*/
             ],
           ),
         ),
@@ -139,7 +104,6 @@ class _HomePageState extends State<HomePage> {
         color: AppColors.backgroudColor,
         child: Row(
               children: [
-                SizedBox(width: 20,),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
@@ -147,6 +111,14 @@ class _HomePageState extends State<HomePage> {
                     });
                   },
                   child: Text("only xmas")
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      
+                    });
+                  },
+                  child: Text("Reset")
                 )
               ],
             ),
