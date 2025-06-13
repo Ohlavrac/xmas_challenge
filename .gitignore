@@ -47,3 +47,5 @@ app.*.map.json
 /ios
 /linux
 /macos
+/windows
+/android
