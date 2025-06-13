@@ -52,6 +52,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             SizedBox(height: 10,),
+            //POSSIVEL SOLUCAO PARA O INPUT GRANDE
             /*Expanded(
               child: contentProvider.hasFile() ? Text("${contentProvider.content}") : Text("SELECT A FILE"),
             ),*/
@@ -62,13 +63,12 @@ class _HomePageState extends State<HomePage> {
                   crossAxisCount: contentProvider.matrix![0].length
                 ), 
                 itemBuilder: (context, index) {
+
                   int columnsN = contentProvider.matrix![0].length; 
                   int line = index ~/ columnsN; 
                   int column = index % columnsN;
         
-                  return Text("${contentProvider.matrix?[line][column]}", style: TextStyle(fontSize: 14),);
-        
-                  //return Text("[$line,$column]");
+                  return Text("${contentProvider.matrix?[line][column]}",);
                 }
               ) : Text("")
             ),

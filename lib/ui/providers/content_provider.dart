@@ -18,6 +18,10 @@ class ContentProvider extends ChangeNotifier{
 
     if (matrix == null) {
       matrix = [];
+
+      //coisas do windows  (normalmente windows usa \r\n)
+      content = content.replaceAll('\r', '');
+
       List<String> lines = content.split('\n');
 
       for (int y = 0; y < lines.length; y++) {
@@ -29,6 +33,8 @@ class ContentProvider extends ChangeNotifier{
     } else {
       null;
     }
+
+    print(matrix);
 
     notifyListeners();
   }
