@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xmas_challenge/ui/providers/content_provider.dart';
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                   ElevatedButton(
                     onPressed: () {
                       setState(() {
-                        contentProvider.readContent(inputMeidumFilePath);
+                        contentProvider.readContent(inputFilePath);
                       });
                     },
                     child: Text("input.txt")
@@ -55,9 +56,11 @@ class _HomePageState extends State<HomePage> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      
+                      setState(() {
+                        contentProvider.readContent(inputMeidumFilePath);
+                      });
                     },
-                    child: Text("upload .txt")
+                    child: Text("input_med.txt")
                   )
                 ],
               ),
