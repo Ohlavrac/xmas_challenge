@@ -1,3 +1,21 @@
+## Como executar versao CLI:
+
+1. git clone https://github.com/Ohlavrac/xmas_challenge.git
+2. cd ./xmas_challenge
+3. code ./ (if use vscode)
+4. flutter pub get
+5. dart ./lib/xmas_cli/main.dart
+PS: Possivel mudar o caminho do arquivo de input no codigo.
+
+## Como executar versao MOBILE:
+
+1. git clone https://github.com/Ohlavrac/xmas_challenge.git
+2. cd ./xmas_challenge
+3. code ./ (if use vscode)
+4. flutter pub get
+5. flutter run
+
+
 You need to implement a XMAS search that finds words to be horizontal, vertical, diagonal, written backwards, or even overlapping other words. You don't merely need to find one instance of XMAS - you need to find all of them. Here are a few ways XMAS might appear, where irrelevant characters have been replaced with .:
 
 ..X...
