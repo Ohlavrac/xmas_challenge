@@ -7,6 +7,10 @@ class ContentProvider extends ChangeNotifier{
 
   void readContent(String path) async {
     content = await rootBundle.loadString(path);
+
+    while (content.isEmpty) {
+      continue;
+    }
     notifyListeners();
   }
 
@@ -29,8 +33,74 @@ class ContentProvider extends ChangeNotifier{
     notifyListeners();
   }
 
+  void xmasFinder() {
+    List<List<int>> coordToSave = [];
+
+    List<String> targets = ['XMAS', 'SAMX'];
+
+    List<List<int>> directions = [
+      [0, 1],
+      [0, -1],
+      [1, 0],  
+      [-1, 0], 
+      [1, 1], 
+      [1, -1],
+      [-1, 1],
+      [-1, -1], 
+    ];
+
+    int lineLength = matrix!.length;
+    int columnLength = matrix![0].length;
+
+    bool atLimit(int l, int c) =>
+        l >= 0 && l < lineLength && c >= 0 && c < columnLength;
+
+    for (int x = 0; x < lineLength; x++) {
+      for (int y = 0; y < columnLength; y++) {
+
+        for (int c = 0; c < directions.length; c++) {
+          String word = "";
+
+          List<int> direction =  directions[c];
+
+          List<List<int>> coords = [];
+          
+          int auxX = x;
+          int auxY = y;
+
+          for (int k = 0; k < targets[0].length; k++) {
+            if (atLimit(auxX, auxY)) {
+              word += matrix![auxX][auxY];
+              coords.add([auxX, auxY]);
+
+              auxX += direction[0];
+              auxY += direction[1];
+            } else {
+              break;
+            }
+          }
+
+          if (targets.contains(word)) {
+            for (int x = 0; x < coords.length; x++) {
+              coordToSave.add(coords[x]);
+            }
+          }
+        }
+      }
+    }
+
+    for (int x = 0; x < matrix!.length; x++) {
+      for (int y = 0; y < matrix![0].length; y++) {
+        bool isValid = coordToSave.any((pos) => pos[0] == x && pos[1] == y);
+
+        if (!isValid) {
+          matrix![x][y] = '.';
+        }
+      }
+    }
+  }
+
   bool hasFile() {
-    print(content);
     if (content.isEmpty) {
       return false;
     } else {
