@@ -65,10 +65,6 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
               SizedBox(height: 10,),
-              //POSSIVEL SOLUCAO PARA O INPUT GRANDE
-              /*Expanded(
-                child: contentProvider.hasFile() ? Text("${contentProvider.content}") : Text("SELECT A FILE"),
-              ),*/
               Container(
                 color: AppColors.resultBackgroundColor,
                 height: MediaQuery.sizeOf(context).height/2,
@@ -79,8 +75,11 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Flexible(
                       child: contentProvider.hasFile() ?  GridView.builder(
-                      shrinkWrap: true,
-                      itemCount: contentProvider.matrix!.length * contentProvider.matrix![0].length,
+                      itemCount: () {
+                        final matrix = contentProvider.matrix!;
+                        final total = matrix.length * matrix[0].length;
+                        return total > 400 ? 400 : total;
+                      }(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: contentProvider.matrix![0].length,
                         childAspectRatio: 1
@@ -95,6 +94,9 @@ class _HomePageState extends State<HomePage> {
                       }
                     ) : Text("SELECT A FILE")
                     ),
+                    /*Flexible(
+                      child: contentProvider.hasFile() ? Text(contentProvider.content) : Text("SELECT A FILE"),
+                    )*/
                   ],
                 ),
               ),
