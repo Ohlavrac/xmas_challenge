@@ -1,7 +1,7 @@
 import 'dart:io';
 
 void main() {
-  var file = File("./inputs/input_small.txt");  
+  var file = File("./inputs/input.txt");  
 
   List<List<String>> matrix = fileToMatrix(file);
 
