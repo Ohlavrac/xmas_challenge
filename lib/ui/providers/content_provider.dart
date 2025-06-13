@@ -5,12 +5,11 @@ class ContentProvider extends ChangeNotifier{
   String content = "";
   List<List<String>>? matrix;
 
-  void readContent(String path) async {
+  Future<void> readContent(String path) async {
     content = await rootBundle.loadString(path);
 
-    while (content.isEmpty) {
-      continue;
-    }
+    fileToMatrix(content);
+
     notifyListeners();
   }
 
@@ -30,9 +29,7 @@ class ContentProvider extends ChangeNotifier{
           matrix?[y].add(lines[y][x]);
         }
       }
-    } else {
-      null;
-    }
+    } 
 
     print(matrix);
 

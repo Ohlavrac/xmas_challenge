@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:xmas_challenge/ui/providers/content_provider.dart';
+import 'package:xmas_challenge/ui/shared/app_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,101 +14,131 @@ class _HomePageState extends State<HomePage> {
   String fileContent = "";
   String inputFilePath = "./assets/inputs/input.txt";
   String inputSmallFilePath = "./assets/inputs/input_small.txt";
+  String inputMeidumFilePath = "./assets/inputs/input_medium.txt";
 
   @override
   Widget build(BuildContext context) {
     var contentProvider = context.read<ContentProvider>();
 
     return Scaffold(
+      backgroundColor: AppColors.backgroudColor,
       appBar: AppBar(
-        title: Text("XMAS FINDER"),
+        backgroundColor: AppColors.backgroudColor,
+        title: Text("XMAS FINDER", style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    contentProvider.readContent(inputFilePath);
-                  },
-                  child: Text("input.txt")
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      contentProvider.readContent(inputMeidumFilePath);
+                    },
+                    child: Text("input.txt")
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        contentProvider.readContent(inputSmallFilePath);
+                      });
+                    },
+                    child: Text("input_small.txt")
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+          
+                    },
+                    child: Text("upload .txt")
+                  )
+                ],
+              ),
+              SizedBox(height: 10,),
+              //POSSIVEL SOLUCAO PARA O INPUT GRANDE
+              /*Expanded(
+                child: contentProvider.hasFile() ? Text("${contentProvider.content}") : Text("SELECT A FILE"),
+              ),*/
+              Container(
+                color: AppColors.resultBackgroundColor,
+                height: MediaQuery.sizeOf(context).height/2,
+                width: MediaQuery.sizeOf(context).width/1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: contentProvider.hasFile() ?  GridView.builder(
+                      shrinkWrap: true,
+                      itemCount: contentProvider.matrix!.length * contentProvider.matrix![0].length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: contentProvider.matrix![0].length,
+                        childAspectRatio: 1
+                      ), 
+                      itemBuilder: (context, index) {
+                                  
+                        int columnsN = contentProvider.matrix![0].length; 
+                        int line = index ~/ columnsN; 
+                        int column = index % columnsN;
+                          
+                        return Center(child: Text("${contentProvider.matrix?[line][column]}", style: TextStyle(fontWeight: FontWeight.w500),));
+                      }
+                    ) : Text("")
+                    ),
+                  ],
                 ),
-                ElevatedButton(
-                  onPressed: () {
-                    contentProvider.readContent(inputSmallFilePath);
-                  },
-                  child: Text("input_small.txt")
-                ),
-                ElevatedButton(
-                  onPressed: () {
-        
-                  },
-                  child: Text("upload .txt")
-                )
-              ],
-            ),
-            SizedBox(height: 10,),
-            //POSSIVEL SOLUCAO PARA O INPUT GRANDE
-            /*Expanded(
-              child: contentProvider.hasFile() ? Text("${contentProvider.content}") : Text("SELECT A FILE"),
-            ),*/
-            Expanded(
-              child: contentProvider.hasFile() ?  GridView.builder(
-                itemCount: contentProvider.matrix!.length * contentProvider.matrix![0].length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: contentProvider.matrix![0].length
-                ), 
-                itemBuilder: (context, index) {
-
-                  int columnsN = contentProvider.matrix![0].length; 
-                  int line = index ~/ columnsN; 
-                  int column = index % columnsN;
-        
-                  return Text("${contentProvider.matrix?[line][column]}",);
-                }
-              ) : Text("")
-            ),
-            /*Row(
-              children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
-                    });
-                  },
-                  child: Text("load")
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
-                    });
-                  },
-                  child: Text("only xmas")
-                )
-              ],
-            ),*/
-          ],
+              ),
+              /*Flexible(
+                child: contentProvider.hasFile() ?  GridView.builder(
+                  shrinkWrap: true,
+                  itemCount: contentProvider.matrix!.length * contentProvider.matrix![0].length,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: contentProvider.matrix![0].length
+                  ), 
+                  itemBuilder: (context, index) {
+              
+                    int columnsN = contentProvider.matrix![0].length; 
+                    int line = index ~/ columnsN; 
+                    int column = index % columnsN;
+                      
+                    return Text("${contentProvider.matrix?[line][column]}",);
+                  }
+                ) : Text("")
+              ),*/
+              /*Row(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
+                      });
+                    },
+                    child: Text("load")
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
+                      });
+                    },
+                    child: Text("only xmas")
+                  )
+                ],
+              ),*/
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
         height: 70,
-        color: Colors.white,
+        color: AppColors.backgroudColor,
         child: Row(
               children: [
-                ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      contentProvider.hasFile() ? contentProvider.fileToMatrix(contentProvider.content) : null;
-                    });
-                  },
-                  child: Text("load")
-                ),
                 SizedBox(width: 20,),
                 ElevatedButton(
                   onPressed: () {
